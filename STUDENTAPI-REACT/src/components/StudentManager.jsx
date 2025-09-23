@@ -22,7 +22,7 @@ const StudentManager = () => {
   const [message, setMessage] = useState('');
   const [editMode, setEditMode] = useState(false);
 
-  const baseUrl = `${config.url}/ReactJenkinsPractice`;
+  const baseUrl = `${config.url}/studentapi`;
 
   useEffect(() => {
     fetchAllStudents();
