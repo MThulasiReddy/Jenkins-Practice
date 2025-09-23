@@ -64,7 +64,7 @@
 	</dependencies>
 
 	<build>
-	<finalName>springbootstudentapi</finalName>
+	<finalName>JenkinsSpringbootPractice</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
