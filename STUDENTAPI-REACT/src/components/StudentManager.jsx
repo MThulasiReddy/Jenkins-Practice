@@ -3,48 +3,45 @@ import axios from 'axios';
 import './style.css';
 import config from './config.js';
 
-const StudentManager = () => {
-  const [students, setStudents] = useState([]);
-  const [student, setStudent] = useState({
+const PrisonManager = () => {
+  const [prisoners, setPrisoners] = useState([]);
+  const [prisoner, setPrisoner] = useState({
     id: '',
     name: '',
     gender: '',
-    department: '',
-    program: '',
-    year: '',
-    semester: '',
-    email: '',
-    password: '',
+    cellBlock: '',
+    crime: '',
+    sentenceYears: '',
+    status: '',
     contact: ''
   });
   const [idToFetch, setIdToFetch] = useState('');
-  const [fetchedStudent, setFetchedStudent] = useState(null);
+  const [fetchedPrisoner, setFetchedPrisoner] = useState(null);
   const [message, setMessage] = useState('');
   const [editMode, setEditMode] = useState(false);
 
-  const baseUrl = `${config.url}/studentapi`;
+  const baseUrl = `${config.url}/prisonapi`;
 
   useEffect(() => {
-    fetchAllStudents();
+    fetchAllPrisoners();
   }, []);
 
-  const fetchAllStudents = async () => {
+  const fetchAllPrisoners = async () => {
     try {
       const res = await axios.get(`${baseUrl}/all`);
-      setStudents(res.data);
+      setPrisoners(res.data);
     } catch (error) {
-      setMessage('Failed to fetch students.');
+      setMessage('Failed to fetch prisoners.');
     }
   };
 
   const handleChange = (e) => {
-    setStudent({ ...student, [e.target.name]: e.target.value });
+    setPrisoner({ ...prisoner, [e.target.name]: e.target.value });
   };
 
-
   const validateForm = () => {
-    for (let key in student) {
-      if (!student[key] || student[key].toString().trim() === '') {
+    for (let key in prisoner) {
+      if (!prisoner[key] || prisoner[key].toString().trim() === '') {
         setMessage(`Please fill out the ${key} field.`);
         return false;
       }
@@ -52,180 +49,160 @@ const StudentManager = () => {
     return true;
   };
 
-  const addStudent = async () => {
+  const addPrisoner = async () => {
     if (!validateForm()) return;
     try {
-      await axios.post(`${baseUrl}/add`, student);
-      setMessage('Student added successfully.');
-      fetchAllStudents();
+      await axios.post(`${baseUrl}/add`, prisoner);
+      setMessage('Prisoner added successfully.');
+      fetchAllPrisoners();
       resetForm();
     } catch (error) {
-      setMessage('Error adding student.');
+      setMessage('Error adding prisoner.');
     }
   };
 
-  const updateStudent = async () => {
+  const updatePrisoner = async () => {
     if (!validateForm()) return;
     try {
-      await axios.put(`${baseUrl}/update`, student);
-      setMessage('Student updated successfully.');
-      fetchAllStudents();
+      await axios.put(`${baseUrl}/update`, prisoner);
+      setMessage('Prisoner updated successfully.');
+      fetchAllPrisoners();
       resetForm();
     } catch (error) {
-      setMessage('Error updating student.');
+      setMessage('Error updating prisoner.');
     }
   };
 
-  const deleteStudent = async (id) => {
+  const deletePrisoner = async (id) => {
     try {
       const res = await axios.delete(`${baseUrl}/delete/${id}`);
       setMessage(res.data);
-      fetchAllStudents();
+      fetchAllPrisoners();
     } catch (error) {
-      setMessage('Error deleting student.');
+      setMessage('Error deleting prisoner.');
     }
   };
 
-  const getStudentById = async () => {
+  const getPrisonerById = async () => {
     try {
       const res = await axios.get(`${baseUrl}/get/${idToFetch}`);
-      setFetchedStudent(res.data);
+      setFetchedPrisoner(res.data);
       setMessage('');
     } catch (error) {
-      setFetchedStudent(null);
-      setMessage('Student not found.');
+      setFetchedPrisoner(null);
+      setMessage('Prisoner not found.');
     }
   };
 
-  const handleEdit = (stud) => {
-    setStudent(stud);
+  const handleEdit = (prsn) => {
+    setPrisoner(prsn);
     setEditMode(true);
-    setMessage(`Editing student with ID ${stud.id}`);
+    setMessage(`Editing prisoner with ID ${prsn.id}`);
   };
 
   const resetForm = () => {
-    setStudent({
+    setPrisoner({
       id: '',
       name: '',
       gender: '',
-      department: '',
-      program: '',
-      year: '',
-      semester: '',
-      email: '',
-      password: '',
+      cellBlock: '',
+      crime: '',
+      sentenceYears: '',
+      status: '',
       contact: ''
     });
     setEditMode(false);
   };
 
   return (
-    <div className="student-container">
+    <div className="prison-container">
 
-{message && (
-  <div className={`message-banner ${message.toLowerCase().includes('error') ? 'error' : 'success'}`}>
-    {message}
-  </div>
-)}
+      {message && (
+        <div className={`message-banner ${message.toLowerCase().includes('error') ? 'error' : 'success'}`}>
+          {message}
+        </div>
+      )}
 
+      <h2>Prison Management</h2>
 
-      <h2>Student Management - Happy Independence</h2>
-
-      <div>
-        <h3>{editMode ? 'Edit Student' : 'Add Student'}</h3>
-        <div className="form-grid">
-          <input type="number" name="id" placeholder="ID" value={student.id} onChange={handleChange} />
-          <input type="text" name="name" placeholder="Name" value={student.name} onChange={handleChange} />
-          <select name="gender" value={student.gender} onChange={handleChange}>
+      <div className="form-section">
+        <h3>{editMode ? 'Edit Prisoner' : 'Add Prisoner'}</h3>
+        <div className="form-flex">
+          <input type="number" name="id" placeholder="ID" value={prisoner.id} onChange={handleChange} />
+          <input type="text" name="name" placeholder="Name" value={prisoner.name} onChange={handleChange} />
+          <select name="gender" value={prisoner.gender} onChange={handleChange}>
             <option value="">Select Gender</option>
             <option value="MALE">MALE</option>
             <option value="FEMALE">FEMALE</option>
           </select>
-          <select name="department" value={student.department} onChange={handleChange}>
-            <option value="">Select Department</option>
-            <option value="CSE">CSE</option>
-            <option value="ECE">ECE</option>
-            <option value="CS&IT">CS&IT</option>
+          <input type="text" name="cellBlock" placeholder="Cell Block" value={prisoner.cellBlock} onChange={handleChange} />
+          <input type="text" name="crime" placeholder="Crime" value={prisoner.crime} onChange={handleChange} />
+          <input type="number" name="sentenceYears" placeholder="Sentence (Years)" value={prisoner.sentenceYears} onChange={handleChange} />
+          <select name="status" value={prisoner.status} onChange={handleChange}>
+            <option value="">Select Status</option>
+            <option value="ACTIVE">ACTIVE</option>
+            <option value="RELEASED">RELEASED</option>
           </select>
-          <select name="program" value={student.program} onChange={handleChange}>
-            <option value="">Select Program</option>
-            <option value="B.Tech">B.Tech</option>
-            <option value="M.Tech">M.Tech</option>
-            <option value="BCA">BCA</option>
-            <option value="MCA">MCA</option>
-          </select>
-          <select name="year" value={student.year} onChange={handleChange}>
-            <option value="">Select Year</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </select>
-          <select name="semester" value={student.semester} onChange={handleChange}>
-            <option value="">Select Semester</option>
-            <option value="ODD">ODD</option>
-            <option value="EVEN">EVEN</option>
-          </select>
-          <input type="email" name="email" placeholder="Email" value={student.email} onChange={handleChange} />
-          <input type="password" name="password" placeholder="Password" value={student.password} onChange={handleChange} />
-          <input type="text" name="contact" placeholder="Contact" value={student.contact} onChange={handleChange} />
+          <input type="text" name="contact" placeholder="Contact" value={prisoner.contact} onChange={handleChange} />
         </div>
 
         <div className="btn-group">
           {!editMode ? (
-            <button className="btn-blue" onClick={addStudent}>Add Student</button>
+            <button className="btn-blue" onClick={addPrisoner}>Add Prisoner</button>
           ) : (
             <>
-              <button className="btn-green" onClick={updateStudent}>Update Student</button>
+              <button className="btn-green" onClick={updatePrisoner}>Update Prisoner</button>
               <button className="btn-gray" onClick={resetForm}>Cancel</button>
             </>
           )}
         </div>
       </div>
 
-      <div>
-        <h3>Get Student By ID</h3>
-        <input
-          type="number"
-          value={idToFetch}
-          onChange={(e) => setIdToFetch(e.target.value)}
-          placeholder="Enter ID"
-        />
-        <button className="btn-blue" onClick={getStudentById}>Fetch</button>
+      <div className="fetch-section">
+        <h3>Get Prisoner By ID</h3>
+        <div className="fetch-flex">
+          <input
+            type="number"
+            value={idToFetch}
+            onChange={(e) => setIdToFetch(e.target.value)}
+            placeholder="Enter ID"
+          />
+          <button className="btn-blue" onClick={getPrisonerById}>Fetch</button>
+        </div>
 
-        {fetchedStudent && (
+        {fetchedPrisoner && (
           <div>
-            <h4>Student Found:</h4>
-            <pre>{JSON.stringify(fetchedStudent, null, 2)}</pre>
+            <h4>Prisoner Found:</h4>
+            <pre>{JSON.stringify(fetchedPrisoner, null, 2)}</pre>
           </div>
         )}
       </div>
 
-      <div>
-        <h3>All Students</h3>
-        {students.length === 0 ? (
-          <p>No students found.</p>
+      <div className="table-section">
+        <h3>All Prisoners</h3>
+        {prisoners.length === 0 ? (
+          <p>No prisoners found.</p>
         ) : (
           <div className="table-wrapper">
             <table>
               <thead>
                 <tr>
-                  {Object.keys(student).map((key) => (
+                  {Object.keys(prisoner).map((key) => (
                     <th key={key}>{key}</th>
                   ))}
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {students.map((stud) => (
-                  <tr key={stud.id}>
-                    {Object.keys(student).map((key) => (
-                      <td key={key}>{stud[key]}</td>
+                {prisoners.map((prsn) => (
+                  <tr key={prsn.id}>
+                    {Object.keys(prisoner).map((key) => (
+                      <td key={key}>{prsn[key]}</td>
                     ))}
                     <td>
                       <div className="action-buttons">
-                        <button className="btn-green" onClick={() => handleEdit(stud)}>Edit</button>
-                        <button className="btn-red" onClick={() => deleteStudent(stud.id)}>Delete</button>
+                        <button className="btn-green" onClick={() => handleEdit(prsn)}>Edit</button>
+                        <button className="btn-red" onClick={() => deletePrisoner(prsn.id)}>Delete</button>
                       </div>
                     </td>
                   </tr>
@@ -240,4 +217,4 @@ const StudentManager = () => {
   );
 };
 
-export default StudentManager;
+export default PrisonManager;
