@@ -65,17 +65,17 @@ button:hover {
 }
 
 .btn-blue {
-  background: linear-gradient(45deg, #00c6ff, #0072ff);
+  background: linear-gradient(45deg, #c2c4c5, #d7d9dc);
   color: white;
 }
 
 .btn-green {
-  background: linear-gradient(45deg, #43e97b, #38f9d7);
+  background: linear-gradient(45deg, #cdcfcd, #dadedd);
   color: black;
 }
 
 .btn-red {
-  background: linear-gradient(45deg, #ff0844, #ff4b2b);
+  background: linear-gradient(45deg, #ded8da, #d2cfcf);
   color: white;
 }
 
