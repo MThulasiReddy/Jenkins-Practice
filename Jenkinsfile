@@ -3,17 +3,17 @@ pipeline {
 
     stages {
 
-        // ===== FRONTEND BUILD =====
+
         stage('Build Frontend') {
             steps {
-                dir('STUDENTAPI-REACT') {
+                dir('Jenkins-Practice') {
                     bat 'npm install'
                     bat 'npm run build'
                 }
             }
         }
 
-        // ===== FRONTEND DEPLOY =====
+
         stage('Deploy Frontend to Tomcat') {
             steps {
                 bat '''
@@ -26,7 +26,7 @@ pipeline {
             }
         }
 
-        // ===== BACKEND BUILD =====
+
         stage('Build Backend') {
             steps {
                 dir('STUDENTAPI-SPRINGBOOT') {
@@ -35,7 +35,7 @@ pipeline {
             }
         }
 
-        // ===== BACKEND DEPLOY =====
+
         stage('Deploy Backend to Tomcat') {
             steps {
                 bat '''
