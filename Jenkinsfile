@@ -6,7 +6,7 @@ pipeline {
 
         stage('Build Frontend') {
             steps {
-                dir('Jenkins-Practice') {
+                dir('STUDENTAPI-REACT') {
                     bat 'npm install'
                     bat 'npm run build'
                 }
