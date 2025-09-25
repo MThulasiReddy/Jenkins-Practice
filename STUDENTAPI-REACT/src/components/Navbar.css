@@ -1,4 +1,4 @@
-/* navbar.css */
+
 .navbar {
   background: linear-gradient(135deg, #1e293b, #0f172a);
   padding: 0.8rem 2rem;
@@ -44,7 +44,7 @@
   color: #38bdf8;
 }
 
-/* Responsive for small screens */
+
 @media (max-width: 768px) {
   .nav-links {
     display: none;

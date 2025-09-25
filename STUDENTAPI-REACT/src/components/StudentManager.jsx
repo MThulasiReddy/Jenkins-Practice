@@ -137,7 +137,7 @@ const PrisonManager = () => {
           </select>
           <input type="text" name="cellBlock" placeholder="Cell Block" value={prisoner.cellBlock} onChange={handleChange} />
           <input type="text" name="crime" placeholder="Crime" value={prisoner.crime} onChange={handleChange} />
-          <input type="number" name="sentenceYears" placeholder="Sentence (Years)" value={prisoner.sentenceYears} onChange={handleChange} />
+          <input type="number" name="sentenceYears" placeholder=" (Years)" value={prisoner.sentenceYears} onChange={handleChange} />
           <select name="status" value={prisoner.status} onChange={handleChange}>
             <option value="">Select Status</option>
             <option value="ACTIVE">ACTIVE</option>

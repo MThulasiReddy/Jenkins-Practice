@@ -10,7 +10,7 @@
 }
 
 h2, h3, h4 {
-  color: #fff;
+  color: white;
   text-align: center;
   margin-bottom: 15px;
 }
@@ -65,18 +65,18 @@ button:hover {
 }
 
 .btn-blue {
-  background: linear-gradient(45deg, #c2c4c5, #d7d9dc);
-  color: white;
+  background: linear-gradient(45deg, white, white);
+  color: black;
 }
 
 .btn-green {
-  background: linear-gradient(45deg, #cdcfcd, #dadedd);
+  background: linear-gradient(45deg, white, white);
   color: black;
 }
 
 .btn-red {
-  background: linear-gradient(45deg, #ded8da, #d2cfcf);
-  color: white;
+  background: linear-gradient(45deg, white, white);
+  color: black;
 }
 
 .btn-gray {
@@ -142,6 +142,6 @@ pre {
 }
 
 .message-banner.success {
-  background: linear-gradient(45deg, #43e97b, #38f9d7);
+  background: linear-gradient(45deg, #d3d6d4, #dee1e1);
   color: black;
 }
